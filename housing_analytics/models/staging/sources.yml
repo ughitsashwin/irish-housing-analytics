@@ -1,0 +1,21 @@
+version: 2
+
+sources:
+  - name: dbt_dev
+    database: HOUSING_ANALYTICS
+    schema: DBT_DEV
+    tables:
+      - name: property_prices
+        description: "Raw CSO property price seed data"
+        columns:
+          - name: month
+            tests:
+              - not_null
+          - name: value
+            tests:
+              # Raw CSO data contains nulls for some regions/months
+              # We set this to warn rather than fail because nulls in source
+              # data are expected and handled downstream in stg_ with try_cast
+              - not_null:
+                  config:
+                    severity: warn

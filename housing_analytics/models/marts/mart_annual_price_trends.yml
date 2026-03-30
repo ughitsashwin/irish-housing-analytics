@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: mart_annual_price_trends
+    description: "Annual property price trends by region and property type.
+      Final business-ready table showing year-over-year growth rates.
+      Only includes complete years with 12 months of data for accuracy."
+
+    columns:
+      - name: price_year
+        description: "The calendar year"
+        tests:
+          - not_null
+
+      - name: region
+        description: "Geographic region"
+        tests:
+          - not_null
+
+      - name: property_category
+        description: "Type of property"
+        tests:
+          - not_null
+
+      - name: annual_avg_index
+        description: "Average price index for the year"
+        tests:
+          - not_null
+
+      - name: yoy_growth_pct
+        description: "Year-over-year percentage change in average index.
+          Null for the first year of data as there is no prior year to compare."

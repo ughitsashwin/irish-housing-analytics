@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: stg_property_prices
+    description: "Cleaned and standardised CSO residential property price index data."
+    columns:
+      - name: price_date
+        description: "First day of the reported month"
+        tests:
+          - not_null
+      - name: price_year
+        description: "Year extracted from price_date"
+        tests:
+          - not_null
+      - name: region
+        description: "Geographic region"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['National', 'Dublin', 'Cork', 'Galway', 'Limerick', 'Waterford', 'Other']
+      - name: property_category
+        description: "Property type"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['All Residential', 'Houses', 'Apartments', 'Other']
+      - name: price_index
+        description: "The CSO property price index value"
+        tests:
+          - not_null
